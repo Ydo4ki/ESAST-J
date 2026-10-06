@@ -2,8 +2,8 @@ package com.ydo4ki.esast;
 
 import java.io.*;
 
-final class $esast$1$0$0 {
-    private $esast$1$0$0() throws IllegalAccessException {
+final class Esast {
+    private Esast() throws IllegalAccessException {
         throw new IllegalAccessException();
     }
 

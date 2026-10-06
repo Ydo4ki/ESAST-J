@@ -13,20 +13,9 @@ import java.io.File;
  */
 public final class Token {
 
-    /**
-     * The type of this token.
-     */
-    public final TokenType type;
-
-    /**
-     * The text value of this token.
-     */
-    public final String text;
-
-    /**
-     * The location of this token in the source code.
-     */
-    public final Location location;
+    private final TokenType type;
+    private final String text;
+    private final Location location;
 
     /**
      * Creates a token with the given type, text, and location.
@@ -66,11 +55,32 @@ public final class Token {
 	 */
     // @Override
     public String toString() {
-        return type + "(" +
-                (text != null ? "'" + text + '\'' : "") +
-                ", startpos=" + location.getStartPos() +
-                ", endpos=" + location.getEndPos() +
-                ", line=" + location.getStartLine() +
+        return getType() + "(" +
+                (getText() != null ? "'" + getText() + '\'' : "") +
+                ", startpos=" + getLocation().getStartPos() +
+                ", endpos=" + getLocation().getEndPos() +
+                ", line=" + getLocation().getStartLine() +
                 ')';
+    }
+
+    /**
+     * The type of this token.
+     */
+    public TokenType getType() {
+        return type;
+    }
+
+    /**
+     * The text value of this token.
+     */
+    public String getText() {
+        return text;
+    }
+
+    /**
+     * The location of this token in the source code.
+     */
+    public Location getLocation() {
+        return location;
     }
 }

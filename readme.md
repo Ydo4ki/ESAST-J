@@ -26,7 +26,7 @@ will correspond to the tree:
 (a [b] c)
 ```
 
-There is also a `LocatedX` version for every Expr class, which represents an expression paired with its `Location` is source code.
+There is also a `LocatedX` version for every `Expr` subclass, which represents an expression paired with its `Location` in the source code.
 
 
 ## How to use

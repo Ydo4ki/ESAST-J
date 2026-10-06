@@ -87,6 +87,6 @@ public abstract class LocatedExpr<E extends Expr> {
             LocatedExpr<? extends Expr> replace = e.replace(symbol, newValue);
             result.add(replace);
         }
-        return ExprList.of(this.getLocation(), ((LocatedExprList) this).getBracketsType(), result);
+        return LocatedExprList.of(this.getLocation(), ((LocatedExprList) this).getBracketsType(), result);
     }
 }

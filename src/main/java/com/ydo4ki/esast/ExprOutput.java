@@ -109,36 +109,39 @@ public final class ExprOutput implements Iterable<LocatedExpr<? extends Expr>> {
 
 
 		private boolean isEOF() {
-			return currentToken == null || currentToken.type == TokenType.EOF;
+			return currentToken == null || currentToken.getType() == TokenType.EOF;
 		}
 		
 		private boolean isMatchingCloseBracket(BracketsType type) {
-			if (isEOF() || currentToken.text.length() == 0) return false;
-			return currentToken.text.charAt(0) == type.close();
+			if (isEOF() || currentToken.getText().length() == 0) return false;
+			return currentToken.getText().charAt(0) == type.close();
 		}
 		
 		private BracketsType getBracketType() {
-			if (currentToken.type == TokenType.OPEN) {
-				return bracketsTypes.byOpen(currentToken.text.charAt(0));
+			if (currentToken.getType() == TokenType.OPEN) {
+				return bracketsTypes.byOpen(currentToken.getText().charAt(0));
 			}
 			return null;
 		}
+
+		private Token eof = null;
 		
 		private void nextToken() {
 			while (tokenIterator.hasNext()) {
 				currentToken = tokenIterator.next();
-				if (currentToken.type != TokenType.COMMENT) {
+				if (currentToken.getType() != TokenType.COMMENT) {
 					return;
 				}
 			}
-			currentToken = null;
+			if (eof == null) eof = tokenIterator.next();
+			currentToken = eof;
 		}
 		
 		private LocatedSymbol parseSymbol() {
 			if (isEOF()) return null;
 			Token token = currentToken;
 			nextToken();
-			return Symbol.of(token.location, token.text);
+			return LocatedSymbol.of(token.getLocation(), token.getText());
 		}
 		
 		private LocatedExprList parseDList(BracketsType bracketsType) {
@@ -151,9 +154,12 @@ public final class ExprOutput implements Iterable<LocatedExpr<? extends Expr>> {
 				if (next == null) break;
 				elements.add(next);
 			}
-			
-			LocatedExprList exprList = ExprList.of(Location.between(startToken.location, currentToken.location), bracketsType, elements);
-			
+
+			if (isEOF() || !isMatchingCloseBracket(bracketsType))
+				throw new UnexpectedTokenEsastException(currentToken, bracketsType.close());
+
+			LocatedExprList exprList = LocatedExprList.of(Location.between(startToken.getLocation(), currentToken.getLocation()), bracketsType, elements);
+
 			nextToken(); // eat closing bracket
 			return exprList;
 		}
@@ -168,8 +174,10 @@ public final class ExprOutput implements Iterable<LocatedExpr<? extends Expr>> {
 			}
 
 			assert currentToken != null;
-			if (currentToken.type == TokenType.CLOSE) {
-				throw new IllegalArgumentException("Unexpected bracket: " + currentToken);
+			if (currentToken.getType() == TokenType.CLOSE) {
+				if (brackets == null)
+					throw new UnexpectedTokenEsastException(currentToken);
+				throw new UnexpectedTokenEsastException(currentToken, brackets.close());
 			}
 			
 			return parseSymbol();

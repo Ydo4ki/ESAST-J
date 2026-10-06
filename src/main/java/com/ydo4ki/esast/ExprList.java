@@ -42,24 +42,6 @@ public final class ExprList extends Expr implements Iterable<Expr> {
 	}
 
 	/**
-	 * Creates a located expression list.
-	 *
-	 * @param location the position in the source text
-	 * @param bracketsType the bracket type
-	 * @param elements the list elements with locations
-	 * @return a located expression list
-	 */
-	public static LocatedExprList of(Location location, BracketsType bracketsType, List<LocatedExpr<? extends Expr>> elements) {
-        List<Expr> result = new ArrayList<Expr>();
-        for (LocatedExpr<? extends Expr> element : elements) {
-            Expr expr = element.getExpr();
-            result.add(expr);
-        }
-        ExprList list = of(bracketsType, result);
-		return new LocatedExprList(list, location, elements);
-	}
-
-	/**
 	 * Creates an expression list with the given brackets type.
 	 *
 	 * @param bracketsType the brackets type

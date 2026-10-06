@@ -22,6 +22,24 @@ public final class LocatedExprList extends LocatedExpr<ExprList> implements Iter
     }
 
     /**
+     * Creates a located expression list.
+     *
+     * @param location the position in the source text
+     * @param bracketsType the bracket type
+     * @param elements the list elements with locations
+     * @return a located expression list
+     */
+    public static LocatedExprList of(Location location, BracketsType bracketsType, List<LocatedExpr<? extends Expr>> elements) {
+List<Expr> result = new ArrayList<Expr>();
+for (LocatedExpr<? extends Expr> element : elements) {
+Expr expr = element.getExpr();
+result.add(expr);
+}
+ExprList list = ExprList.of(bracketsType, result);
+        return new LocatedExprList(list, location, elements);
+    }
+
+    /**
      * Splits all elements of the list by the given separators and merges the
      * results into a single {@link LocatedExprList}.
      *
@@ -46,7 +64,7 @@ public final class LocatedExprList extends LocatedExpr<ExprList> implements Iter
         for (LocatedExpr<? extends Expr> e : getElements()) {
             list.addAll(e.split(separateLines));
         }
-        return ExprList.of(getLocation(), getBracketsType(),
+        return of(getLocation(), getBracketsType(),
                 list);
     }
 

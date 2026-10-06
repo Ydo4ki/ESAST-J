@@ -40,17 +40,6 @@ public final class Symbol extends Expr {
 	}
 
 	/**
-	 * Creates a located symbol with the given value.
-	 *
-	 * @param location the position in the source text
-	 * @param value the symbol value
-	 * @return a located symbol
-	 */
-	public static LocatedSymbol of(Location location, String value) {
-		return Symbol.of(value).located(location);
-	}
-
-	/**
 	 * Returns the value that this symbol was created with.
 	 *
 	 * @return the symbol value
@@ -159,7 +148,7 @@ public final class Symbol extends Expr {
 	}
 
 	/**
-	 * Creates a located symbol with the given location.
+	 * Converts this to a located symbol with the given location.
 	 *
 	 * @param location the position in the source text
 	 * @return a located symbol

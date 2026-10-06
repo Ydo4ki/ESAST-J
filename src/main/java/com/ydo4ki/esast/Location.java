@@ -129,7 +129,7 @@ public final class Location {
         if ((v = sources_cache.get(sourceFile)) == null) {
             String newValue;
             try {
-                newValue = $esast$1$0$0.readAllLinesJoined(sourceFile);
+                newValue = Esast.readAllLinesJoined(sourceFile);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }

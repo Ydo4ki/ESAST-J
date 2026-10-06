@@ -18,6 +18,17 @@ public final class LocatedSymbol extends LocatedExpr<Symbol> {
     }
 
     /**
+     * Creates a located symbol with the given value.
+     *
+     * @param location the position in the source text
+     * @param value the symbol value
+     * @return a located symbol
+     */
+    public static LocatedSymbol of(Location location, String value) {
+        return Symbol.of(value).located(location);
+    }
+
+    /**
      * Splits the symbol value into a sequence of located symbols using the given
      * separator strings.
      *
@@ -61,7 +72,7 @@ public final class LocatedSymbol extends LocatedExpr<Symbol> {
                 if (line.startsWith(sep, current)) {
                     if (sep.length() > maxLen) {
                         maxLen = sep.length();
-                        foundSep = Symbol.of(new Location(
+                        foundSep = of(new Location(
                                 getLocation().getStartPos() + start,
                                 getLocation().getStartPos() + current,
                                 getLocation().getStartLine(),
@@ -74,7 +85,7 @@ public final class LocatedSymbol extends LocatedExpr<Symbol> {
 
             if (foundSep != null) {
                 if (current > start) {
-                    result.add(Symbol.of(new Location(
+                    result.add(of(new Location(
                                     getLocation().getStartPos() + start,
                                     getLocation().getStartPos() + current,
                                     getLocation().getStartLine(),
@@ -92,7 +103,7 @@ public final class LocatedSymbol extends LocatedExpr<Symbol> {
         }
 
         if (start < lineLength) {
-            result.add(Symbol.of(new Location(
+            result.add(of(new Location(
                     getLocation().getStartPos() + start,
                     getLocation().getStartPos() + (line.length() - start),
                     getLocation().getStartLine(),

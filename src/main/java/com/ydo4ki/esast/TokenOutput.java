@@ -97,7 +97,7 @@ public final class TokenOutput implements Iterable<Token> {
 	 * @throws IOException if an I/O error occurs while reading the file
 	 */
 	public TokenOutput(File file, BracketsTypes bracketsTypes) throws IOException {
-		this($esast$1$0$0.readAllLinesJoined(file), file, bracketsTypes);
+		this(Esast.readAllLinesJoined(file), file, bracketsTypes);
 	}
 
 	/**
@@ -133,7 +133,7 @@ public final class TokenOutput implements Iterable<Token> {
 		
 		// @Override
 		public boolean hasNext() {
-			return next.type != TokenType.EOF;
+			return next.getType() != TokenType.EOF;
 		}
 		
 		// @Override
