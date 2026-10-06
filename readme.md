@@ -74,6 +74,22 @@ expr.split(",", "-") // will return a collection of symbols: "2j" "," "41" "-" "
 implementation 'com.ydo4ki:ESAST:1.0.0'
 ```
 
+### No build system
+```
+Go to releases tab and download latest jar
+```
+
+## How to build
+1. Clone this repository
+```bash
+git clone https://github.com/Ydo4ki/ESAST-J.git
+cd ESAST-J
+```
+2. Run maven build (maven should run on Java 8):
+```bash
+mvn clean package
+```
+
 ## Dependencies
 `java.io`<br>
 `java.util`

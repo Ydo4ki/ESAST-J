@@ -53,8 +53,8 @@ public final class Symbol extends Expr {
 	 * separator strings.
 	 *
 	 * <p>The splitting is greedy: at each position the longest matching
-	 * separator is chosen. Empty separator strings are ignored. <bold>The found
-	 * separators are also returned as separate {@link Symbol} instances.</bold></p>
+	 * separator is chosen. Empty separator strings are ignored. <b>The found
+	 * separators are also returned as separate {@link Symbol} instances.</b></p>
 	 *
 	 * <p>If no non-empty separator is provided or there are no separators, a collection containing a single symbol with
 	 * the original value is returned.</p>
